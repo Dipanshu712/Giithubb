@@ -11,10 +11,16 @@ from decimal import Decimal
 from math import ceil
 from django.views.decorators.csrf import csrf_exempt
 
-# Razorpay client
-client = razorpay.Client(
-    auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET)
-)
+
+# ================================
+# FIX: SAFE Razorpay Initialization
+# ================================
+def get_razorpay_client():
+    """Lazy initialize Razorpay client — prevents server crash on import."""
+    return razorpay.Client(
+        auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET)
+    )
+
 
 # ================================
 # HOME
@@ -203,7 +209,8 @@ def checkout(request):
                     price=product.price
                 )
 
-        # Razorpay (in paise)
+        # Razorpay
+        client = get_razorpay_client()
         amount_in_paise = int(total_amount * Decimal("100"))
 
         razorpay_order = client.order.create({
@@ -264,6 +271,8 @@ def paymenthandler(request):
             'razorpay_payment_id': payment_id,
             'razorpay_signature': signature
         }
+
+        client = get_razorpay_client()
 
         try:
             client.utility.verify_payment_signature(params)
