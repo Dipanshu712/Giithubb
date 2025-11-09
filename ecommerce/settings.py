@@ -1,11 +1,18 @@
 from pathlib import Path
 import os
 from django.contrib.messages import constants as message_constants
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import dj_database_url
 
 # Load environment variables
-load_dotenv()
+# load_dotenv()
+
+
+# Remove load_dotenv() on Railway
+if os.getenv("RAILWAY_ENVIRONMENT") != "production":
+    from dotenv import load_dotenv
+    load_dotenv()
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
