@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Contact Us{% endblock title %}
+
+{% block body %}
+<main>
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="mb-4 pb-4"></div>
+    <section class="contact-us container">
+        <div class="mw-930">
+            <h2 class="page-title">CONTACT US</h2>
+        </div>
+    </section>
+
+    <section class="contact-us container">
+        <div class="mw-930">
+            <div class="row mb-5">
+                <div class="col-lg-6">
+                    <h3 class="mb-4">Store inMumbai</h3>
+                    <p class="mb-4">1418 River Drive, Suite 35 Cottonhall, CA 9622<br>India</p>
+                    <p class="mb-4">sale@uomo.com<br>+44 20 7123 4567</p>
+                </div>
+
+                <div class="col-lg-6">
+                    <h3 class="mb-4">Store in Istanbul</h3>
+                    <p class="mb-4">1418 River Drive, Suite 35 Cottonhall, CA 9622<br>Turkey</p>
+                    <p class="mb-4">sale@uomo.com<br>+90 212 555 1212</p>
+                </div>
+            </div>
+
+            <div class="contact-us__form">
+                <form action="/contact" method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <h3 class="mb-5">Get In Touch</h3>
+
+                    <div class="form-floating my-4">
+                        <input name="name" type="text" class="form-control" id="name" placeholder="Name *" required>
+                        <label for="name">Name *</label>
+                    </div>
+
+                    <div class="form-floating my-4">
+                        <input name="email" type="email" class="form-control" id="email" placeholder="Email address *" required>
+                        <label for="email">Email address *</label>
+                    </div>
+
+                    <div class="form-floating my-4">
+                        <input name="pnumber" type="tel" class="form-control" id="pnumber" placeholder="Phone Number *" required>
+                        <label for="pnumber">Phone Number *</label>
+                    </div>
+
+                    <div class="my-4">
+                        <textarea name="desc" class="form-control form-control_gray" id="desc" placeholder="Your Message" cols="30" rows="8" required></textarea>
+                    </div>
+
+                    <div class="my-4">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+<div class="mb-5 pb-xl-5"></div>
+{% endblock body %}

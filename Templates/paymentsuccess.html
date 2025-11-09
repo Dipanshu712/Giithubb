@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Payment-Succesfull{% endblock title %}
+
+{% block body %}
+<main>
+  <section class="shop-checkout container">
+    <h2 class="page-title">Order Received</h2>
+    <div class="order-complete">
+      <div class="order-complete__message">
+        <h3>Your order is completed!</h3>
+        <p>Thank you. Your order has been received.</p>
+      </div>
+      <div class="order-info">
+        <div class="order-info__item">
+          <label>Order Number</label>
+          <span>{{ order.id }}</span>
+        </div>
+        <div class="order-info__item">
+          <label>Date</label>
+          <span>{{ order.created_at|date:"d/m/Y" }}</span>
+        </div>
+        <div class="order-info__item">
+          <label>Total</label>
+          <span>₹{{ order_total }}</span>
+        </div>
+        <div class="order-info__item">
+          <label>Payment Method</label>
+          <span>Razorpay</span>
+        </div>
+      </div>
+      <div class="checkout__totals-wrapper">
+        <div class="checkout__totals">
+          <h3>Order Details</h3>
+          <table class="checkout-cart-items">
+            <thead>
+              <tr>
+                <th>PRODUCT</th>
+                <th>QTY</th>
+                <th>SUBTOTAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in order.items.all %}
+              <tr>
+                <td>{{ item.product.product_name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ item.subtotal }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <table class="checkout-totals">
+            <tbody>
+              <tr>
+                <th>SUBTOTAL</th>
+                <td>₹{{ order_subtotal }}</td>
+              </tr>
+              <tr>
+                <th>SHIPPING</th>
+                <td>Free shipping</td>
+              </tr>
+              <tr>
+                <th>VAT</th>
+                <td>₹{{ order_vat }}</td>
+              </tr>
+              <tr>
+                <th>TOTAL</th>
+                <td>₹{{ order_total }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock body %}

@@ -1,0 +1,23 @@
+{% autoescape off %}
+
+Hi {{ user.username }},
+Abhinesh  my sons dady will be proud of you ! my sons  
+fuck You  !!!!!!!!!!!!
+Please click the link below to activate your account:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+
+
+
+{% endautoescape %}
+
+
+
+{% comment %} 
+
+if any errror occur happen just go to this link 
+
+https://myaccount.google.com/apppasswords?rapt=AEjHL4Oa5e4Tw6t7yrbtzhgFvzoF4cSUW5ibloTguTcBRvcr97SyofppCR6JhOS_ggIV1h1wXaVtugmqVksC0UPP6anVFpJEZ68Yf5iRGgIKjxaC_p2oGmI
+
+{% endcomment %}

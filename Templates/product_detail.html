@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block body %}
+<!-- Original product detail HTML here ... -->
+
+<!-- NEW PRODUCT SUMMARY block (below original section) -->
+<main>
+  <div class="mb-md-1 pb-md-3"></div>
+  <section class="product-single container">
+    <div class="row">
+      <!-- LEFT: Image Gallery (single image if only one) -->
+      <div class="col-lg-7">
+        <div class="product-single__media" data-media-type="vertical-thumbnail">
+          <div class="product-single__image">
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                <!-- If only one product image -->
+                <div class="swiper-slide product-single__image-item">
+                  <img loading="lazy" class="h-auto img-fluid" src="{{ product.image.url }}" width="674" height="674" alt="{{ product.product_name }}">
+                  <a data-fancybox="gallery" href="{{ product.image.url }}" data-bs-toggle="tooltip" data-bs-placement="left" title="Zoom">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_zoom" /></svg>
+                  </a>
+                </div>
+                <!-- For multiple images, loop here -->
+              </div>
+              <!-- Swiper navigation (if needed) -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- RIGHT: Product Details -->
+      <div class="col-lg-5">
+        <h1 class="product-single__name">{{ product.product_name }}</h1>
+        <div class="product-single__price">
+          <span class="current-price">₹{{ product.price }}</span>
+        </div>
+        <div class="product-single__short-desc">
+          <p>{{ product.desc }}</p>
+        </div>
+        <div>
+          <p><strong>Category:</strong> {{ product.category }}</p>
+          <p><strong>Subcategory:</strong> {{ product.subcategory }}</p>
+        </div>
+        <form name="addtocart-form" method="post">
+          <div class="product-single__addtocart">
+            <div class="qty-control position-relative">
+              <input type="number" name="quantity" value="1" min="1" class="qty-control__number text-center">
+              <div class="qty-control__reduce">-</div>
+              <div class="qty-control__increase">+</div>
+            </div>
+<button type="button" class="btn btn-primary btn-addtocart js-open-aside"
+            data-product-id="{{ product.id }}"
+            data-title="{{ product.product_name }}"
+            data-price="{{ product.price }}"
+            data-image="{{ product.image.url }}">
+            Add to Cart
+          </button>          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+{% endblock body %}

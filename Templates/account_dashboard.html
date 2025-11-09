@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+
+<main>
+  <section class="my-account container">
+    <h2 class="page-title">My Account</h2>
+    <div class="row">
+      <div class="col-lg-3">
+        <ul class="account-nav">
+          <li><a href="{% url 'account_dashboard' %}" class="menu-link menu-link_us-s menu-link_active">Dashboard</a></li>
+          <li><a href="{% url 'account_orders' %}" class="menu-link menu-link_us-s">Orders</a></li>
+          {% comment %} <li><a href="{% url 'account_edit_address' %}" class="menu-link menu-link_us-s">Addresses</a></li> {% endcomment %}
+          {% comment %} <li><a href="{% url 'account_edit' %}" class="menu-link menu-link_us-s">Account Details</a></li> {% endcomment %}
+          {% comment %} <li><a href="{% url 'account_wishlist' %}" class="menu-link menu-link_us-s">Wishlist</a></li> {% endcomment %}
+          {% comment %} <li><a href="{% url 'logout' %}" class="menu-link menu-link_us-s">Logout</a></li> {% endcomment %}
+        </ul>
+      </div>
+      <div class="col-lg-9">
+        <div class="page-content my-account__dashboard">
+          <p>Hello <h2>{{ user.username }}</h2>
+          <p>
+            From your account dashboard you can view your
+            <a class="unerline-link" href="{% url 'account_orders' %}">recent orders</a>,
+            manage your <a class="unerline-link" href="">shipping and billing addresses</a>,
+            and <a class="unerline-link" href="">edit your password and account details.</a>
+          </p>
+          <hr>
+          <h4>Your Recent Orders</h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th><th>Date</th><th>Total</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in orders %}
+              <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.created_at|date:"d/m/Y" }}</td>
+                <td>₹{{ order.items.all|length }}</td>
+                <td>
+                  {% if order.paid %}
+                    <span class="badge bg-success">Paid</span>
+                  {% else %}
+                    <span class="badge bg-warning">Pending</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="4">No orders found.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
